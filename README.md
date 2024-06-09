@@ -66,6 +66,3 @@ This project is developed in collaboration with [YouData.ai](https://datalink.yo
 [YouData.ai Dataset Link](https://datalink.youdata.ai/2p8v4nef)
 
 [Model Download Link](https://drive.google.com/file/d/1nn0siUNDHHdPVRtovfNNye3NZ8CXZekE/view?usp=sharing)
-
----
-```

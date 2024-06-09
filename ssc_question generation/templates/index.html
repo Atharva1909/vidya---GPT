@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vidya GPT</title>
+  <link rel="icon" href="/static/logo.jpeg">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body  >
+  <header>
+    
+  <div class="header-right">
+
+    <img src="/static/logo-removebg-preview.png" alt="logo"  height="80px" width="80px" style="border-radius:50%;" >
+    <h1 class="VG">VidyaGPT</h1>
+  </div>
+  </header>
+
+
+  <div class="chat-container" id="chatContainer">
+    <div id="response">Hello!! There How can i Help You</div> 
+   
+  </div>
+
+  <div class="input-container">
+    <input type="text" id="chapter" placeholder="Type your message...">
+    
+    <button onclick="generateQuestions()"><img src="/static/image-removebg-preview.png" alt="logo " height="20px"></button>
+    <button id="voice" onclick="startDictation()"><img src="/static/microphone-342.png" alt="logo " height="20px"></button>
+  </div>
+
+  <script >
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  async function generateQuestions() {
+      const chapter = document.getElementById("chapter").value;
+      if (chapter.trim() !== "") {
+        appendMessage("You", chapter, "you");
+        document.getElementById("chapter").value = "";
+
+        const responseDiv = document.getElementById("response");
+        responseDiv.classList.remove('visible');
+        responseDiv.textContent = "Processing...";
+
+        try {
+          const response = await fetch('/generate_questions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ chapter: chapter }),
+          });
+
+          const data = await response.json();
+          appendMessage("VidyaGPT", formatQuestions(data.response), "vidyagpt");
+          responseDiv.textContent = "";
+          responseDiv.classList.add('visible');
+        } catch (error) {
+          responseDiv.textContent = "Error processing request.";
+          responseDiv.classList.add('visible');
+        }
+      }
+    }
+
+    function appendMessage(sender, message, className) {
+      const chatContainer = document.getElementById("chatContainer");
+      const messageElement = document.createElement("div");
+      messageElement.className = `message ${className}`;
+      messageElement.innerHTML = "<strong>" + sender + ":</strong> " + message;
+      chatContainer.appendChild(messageElement);
+      chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to the bottom
+    }
+
+    function formatQuestions(questions) {
+      const questionList = questions.split('\n').filter(q => q.trim() !== '');
+      let formattedQuestions = '<ol class="question-list">';
+      questionList.forEach(question => {
+        formattedQuestions += `<li>${question}</li><br>`;
+      });
+      formattedQuestions += '</ol>';
+      return formattedQuestions;
+    }
+  
+  function startDictation() {
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+        const recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
+        recognition.start();
+  
+        recognition.onresult = function(event) {
+            document.getElementById("chapter").value = event.results[0][0].transcript;
+            recognition.stop();
+            generateQuestions();
+        };
+  
+        recognition.onerror = function(event) {
+            recognition.stop();
+        }
+    }
+  }
+  </script>
+</body>
+</html>

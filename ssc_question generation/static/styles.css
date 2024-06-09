@@ -1,0 +1,128 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url(bg.png);
+  background-size: cover;
+}
+
+.VG {
+  opacity: 1;
+}
+
+header {
+  background-color: black;
+  color: #F24607;
+  padding: 1px;
+  font-weight: bold;
+  opacity: 0.7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+
+.chat-container {
+  width: 800px;
+  margin: 20px auto;
+  position: fixed;
+  bottom: 70px;
+  left: 50px;
+  right: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  height: 350px;
+  background-color: white;
+  opacity: 0.85;
+  overflow-y: auto;
+  
+}
+
+.chat-container div {
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.chat-container a {
+  color: blue;
+  text-decoration: underline;
+  word-wrap: break-word;
+}
+
+.chat-container strong {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-container {
+  max-width: 800px;
+  margin: 20px auto;
+  width: 1000px;
+  height: 50px;
+  position: fixed;
+  bottom: 0px;
+  left: 50px;
+  right: 50px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #F24607;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+button:hover {
+  background-color: #F24607;
+}
+
+button:active {
+  background-color: #a82a04;
+}
+
+
+#response {
+  margin-top: 20px;
+}
+
+#response.visible {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
